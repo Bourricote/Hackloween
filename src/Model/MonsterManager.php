@@ -79,4 +79,13 @@ SET `name` = :name, `description` = :description, `picture` = :picture, `level` 
 
         return $statement->execute();
     }
+
+    public function updateScore($monster)
+    {
+        $statement = $this->pdo->prepare("UPDATE $this->table 
+            SET score = score + " . $monster['monster_points'] . " WHERE id = :id");
+        $statement->bindValue('id', $monster['monster_id'], \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }
