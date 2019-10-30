@@ -8,6 +8,10 @@
  *
  * @link     https://github.com/WildCodeSchool/simple-mvc
  */
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST,GET,PUT,DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type,      Accept");
 
 if ($_SERVER['REQUEST_METHOD'] != 'OPTIONS') {
     $routeParts = explode('/', ltrim($_SERVER['REQUEST_URI'], '/') ?: HOME_PAGE);

@@ -35,8 +35,13 @@ class HunterManager extends AbstractManager
     public function insert(array $hunter): int
     {
         // prepared request
-        $statement = $this->pdo->prepare("INSERT INTO $this->table (`title`) VALUES (:title)");
-        $statement->bindValue('title', $hunter['title'], \PDO::PARAM_STR);
+        $statement = $this->pdo->prepare("INSERT INTO $this->table (`name`, `description`, `picture`, `level`, `score`) 
+VALUES (:name, :description, :picture, :level, :score)");
+        $statement->bindValue('name', $hunter['name'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $hunter['description'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $hunter['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('level', $hunter['level'], \PDO::PARAM_INT);
+        $statement->bindValue('score', $hunter['score'], \PDO::PARAM_INT);
 
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
@@ -63,9 +68,14 @@ class HunterManager extends AbstractManager
     {
 
         // prepared request
-        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE $this->table 
+SET `name` = :name, `description` = :description, `picture` = :picture, `level` = :level, `score` = :score WHERE id=:id");
         $statement->bindValue('id', $hunter['id'], \PDO::PARAM_INT);
-        $statement->bindValue('title', $hunter['title'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $hunter['name'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $hunter['description'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $hunter['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('level', $hunter['level'], \PDO::PARAM_INT);
+        $statement->bindValue('score', $hunter['score'], \PDO::PARAM_INT);
 
         return $statement->execute();
     }

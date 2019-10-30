@@ -67,7 +67,11 @@ class MonsterController
                 $monster = $monsterManager->selectOneById($id);
                 $json = file_get_contents('php://input');
                 $obj = json_decode($json);
-                $monster['title'] = $obj->title;
+                $monster['name'] = $obj->name;
+                $monster['description'] = $obj->description;
+                $monster['picture'] = $obj->picture;
+                $monster['level'] = $obj->level;
+                $monster['score'] = $obj->score;
                 $monsterManager->update($monster);
                 header('HTTP/1.1 204 resource updated successfully');
             } catch (\Exception $e) {
@@ -94,7 +98,11 @@ class MonsterController
                 $obj = json_decode($json);
                 $monsterManager = new MonsterManager();
                 $monster = [
-                    'title' => $obj->title,
+                    'name' => $obj->name,
+                    'description' => $obj->description,
+                    'picture' => $obj->picture,
+                    'level' => $obj->level,
+                    'score' => $obj->score,
                 ];
                 $id = $monsterManager->insert($monster);
                 header('HTTP/1.1 201 Created');
@@ -104,8 +112,9 @@ class MonsterController
                 var_dump($e->getMessage());
                 header('HTTP/1.1 500 Internal Server Error');
             }
+        } else {
+            header('HTTP/1.1 405 Method Not Allowed');
         }
-        header('HTTP/1.1 405 Method Not Allowed');
     }
 
 

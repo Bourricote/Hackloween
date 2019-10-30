@@ -35,8 +35,13 @@ class MonsterManager extends AbstractManager
     public function insert(array $monster): int
     {
         // prepared request
-        $statement = $this->pdo->prepare("INSERT INTO $this->table (`title`) VALUES (:title)");
-        $statement->bindValue('title', $monster['title'], \PDO::PARAM_STR);
+        $statement = $this->pdo->prepare("INSERT INTO $this->table (`name`, `description`, `picture`, `level`, `score`) 
+VALUES (:name, :description, :picture, :level, :score)");
+        $statement->bindValue('name', $monster['name'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $monster['description'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $monster['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('level', $monster['level'], \PDO::PARAM_INT);
+        $statement->bindValue('score', $monster['score'], \PDO::PARAM_INT);
 
         if ($statement->execute()) {
             return (int)$this->pdo->lastInsertId();
@@ -63,9 +68,14 @@ class MonsterManager extends AbstractManager
     {
 
         // prepared request
-        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title WHERE id=:id");
+        $statement = $this->pdo->prepare("UPDATE $this->table 
+SET `name` = :name, `description` = :description, `picture` = :picture, `level` = :level, `score` = :score WHERE id=:id");
         $statement->bindValue('id', $monster['id'], \PDO::PARAM_INT);
-        $statement->bindValue('title', $monster['title'], \PDO::PARAM_STR);
+        $statement->bindValue('name', $monster['name'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $monster['description'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $monster['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('level', $monster['level'], \PDO::PARAM_INT);
+        $statement->bindValue('score', $monster['score'], \PDO::PARAM_INT);
 
         return $statement->execute();
     }

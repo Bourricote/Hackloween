@@ -67,7 +67,11 @@ class HunterController
                 $hunter = $hunterManager->selectOneById($id);
                 $json = file_get_contents('php://input');
                 $obj = json_decode($json);
-                $hunter['title'] = $obj->title;
+                $hunter['name'] = $obj->name;
+                $hunter['description'] = $obj->description;
+                $hunter['picture'] = $obj->picture;
+                $hunter['level'] = $obj->level;
+                $hunter['score'] = $obj->score;
                 $hunterManager->update($hunter);
                 header('HTTP/1.1 204 resource updated successfully');
             } catch (\Exception $e) {
@@ -94,7 +98,11 @@ class HunterController
                 $obj = json_decode($json);
                 $hunterManager = new HunterManager();
                 $hunter = [
-                    'title' => $obj->title,
+                    'name' => $obj->name,
+                    'description' => $obj->description,
+                    'picture' => $obj->picture,
+                    'level' => $obj->level,
+                    'score' => $obj->score,
                 ];
                 $id = $hunterManager->insert($hunter);
                 header('HTTP/1.1 201 Created');
