@@ -57,7 +57,7 @@ class FightManager extends AbstractManager
      */
     public function selectAllByHunterId(int $id): array
     {
-        $statement = $this->pdo->prepare('SELECT fight.date, monster.name as monster_name, fight.hunter_points, fight.monster_points 
+        $statement = $this->pdo->prepare('SELECT DATE_FORMAT(fight.date, "%d/%m/%Y") AS date, monster.name as monster_name, fight.hunter_points, fight.monster_points 
             FROM ' . $this->table . ' JOIN monster 
             ON monster.id=fight.monster_id WHERE hunter_id=:id ORDER BY date DESC');
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
