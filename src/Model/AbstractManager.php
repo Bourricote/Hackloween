@@ -52,6 +52,17 @@ abstract class AbstractManager
     }
 
     /**
+     * Get all row from database.
+     *
+     * @return array
+     */
+    public function selectAllByScore(): array
+    {
+        return $this->pdo->query('SELECT id, name, score, picture 
+        FROM ' . $this->table . ' ORDER BY score DESC, name')->fetchAll();
+    }
+
+    /**
      * Get one row from database by ID.
      *
      * @param  int $id
