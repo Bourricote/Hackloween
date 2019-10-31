@@ -67,14 +67,10 @@ class HunterController
     public function show(int $id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $data=[];
             $hunterManager = new HunterManager();
-            $data['hunter'] = $hunterManager->selectOneById($id);
+            $hunter = $hunterManager->selectOneById($id);
 
-            $fightManager = new FightManager();
-            $data['fights'] = $fightManager->selectAllByHunterId($id);
-
-            return json_encode($data);
+            return json_encode($hunter);
         }
         header('HTTP/1.1 405 Method Not Allowed');
     }

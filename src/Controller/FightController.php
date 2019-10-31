@@ -39,6 +39,15 @@ class FightController
         header('HTTP/1.1 405 Method Not Allowed');
     }
 
+    public function fightsByHunterId(int $id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $fightManager = new FightManager();
+            $fights = $fightManager->selectAllByHunterId($id);
+            return json_encode($fights);
+        }
+    }
+
 
     /**
      * Retrieve fight informations specified by $id
