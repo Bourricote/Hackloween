@@ -30,6 +30,10 @@ class Connection
      * @access private
      */
     private $pdoConnection;
+    private $user;
+    private $host;
+    private $password;
+    private $dbName;
 
     /**
      * Initialize connection
@@ -38,11 +42,22 @@ class Connection
      */
     public function __construct()
     {
+        if (getenv('ENV') === 'prod') {
+            $this->user     = getenv('DB_USER');
+            $this->host     = getenv('DB_HOST');
+            $this->password = getenv('DB_PASSWORD');
+            $this->dbName   = getenv('DB_NAME');
+        } else {
+            $this->user     = APP_DB_USER;
+            $this->host     = APP_DB_HOST;
+            $this->password = APP_DB_PWD;
+            $this->dbName   = APP_DB_NAME;
+        }
         try {
             $this->pdoConnection = new PDO(
-                'mysql:host=' . APP_DB_HOST . '; dbname=' . APP_DB_NAME . '; charset=utf8',
-                APP_DB_USER,
-                APP_DB_PWD
+                'mysql:host=' . $this->host . '; dbname=' . $this->dbName . '; charset=utf8',
+                $this->user,
+                $this->password
             );
 
             $this->pdoConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
