@@ -1,8 +1,8 @@
 # Wild Blood
 
-Simple API rest created for Halloween Hackathon at Wild Code School - Bordeaux
+Simple API rest created for the Halloween Hackathon 2019 at Wild Code School - Bordeaux
 
-## available URLs 
+## Available URLs 
 
 ### Hunters :
 - [GET] list at [localhost:8000/hunter/all](localhost:8000/hunter/all) 
